@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const userController = {};
 const authController = require("./authController");
+const bcrypt = require("bcrypt");
 
 
 
@@ -42,11 +43,11 @@ userController.updateUser = async (req, res) => {
         };
 
         const {email, password, firstName, lastName, document, address, telefonNumber, collegialNumber, role_id} = req.body;
-        
+        const updatedPassword = bcrypt.hashSync(req.body.password, 8);
         const userUpdated = await User.update(
             {
                 email: email,
-                password: password,
+                password: updatedPassword,
                 firstName: firstName,
                 lastName: lastName,
                 document: document,
