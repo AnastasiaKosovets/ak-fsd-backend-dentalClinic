@@ -4,8 +4,9 @@ const { User } = require('../models');
 
 // Create register part fot New User
 authController.register = async (req, res) => {
+    // conditionals ti correct register dates
     try {
-        console.log(req.body);
+        // console.log(req.body);
         // if (req.body.password.length < 4) {
         //     return res.send('Password must be longer than 4 characters');
         // } else if (req.body.document.length < 9){
@@ -15,6 +16,18 @@ authController.register = async (req, res) => {
         // } else if (req.body.document.length < 9){
         //     return res.send('Invalid collegiate number')
         // }
+        switch (true) {
+            case req.body.password.length < 4:
+                return res.send('Password must be longer than 4 characters');
+            case req.body.document.length < 9:
+                return res.send('Invalid document');
+            case req.body.telefonNumber.length < 9:
+                return res.send('Wrong phone number lenght');
+            case req.body.collegialNumber.length < 9:
+                return res.send('Invalid collegiate number');
+            default:
+                console.log('Something went wrong with your register')
+        }
         
         const newUser = await User.create ({
             email: req.body.email,
