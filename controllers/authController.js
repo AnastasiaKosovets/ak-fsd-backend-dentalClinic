@@ -1,6 +1,7 @@
 const authController = {};
 // vinculated with User model
 const { User } = require('../models');
+const bcrypt = require('bcrypt');
 
 // Create register part fot New User
 authController.register = async (req, res) => {
@@ -28,10 +29,10 @@ authController.register = async (req, res) => {
             default:
                 console.log('Something went wrong with your register')
         }
-        
+        const newPassword = bcrypt.hashSync(req.body.password, 8);
         const newUser = await User.create ({
             email: req.body.email,
-            password: req.body.password,
+            password: newPassword,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             document: req.body.document,
