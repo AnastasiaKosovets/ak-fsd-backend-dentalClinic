@@ -1,4 +1,6 @@
+// create token 
 const jwt = require("jsonwebtoken");
+// create conditional for token 
 const auth = (req, res, next) => {
     try {
         const bearerToken = req.headers.authorization;
