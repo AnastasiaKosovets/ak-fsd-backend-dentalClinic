@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 // Create register part fot New User
 authController.register = async (req, res) => {
-    // conditionals ti correct register dates
+    // conditionals to correct register dates
     try {
         // console.log(req.body);
         // if (req.body.password.length < 4) {
@@ -33,6 +33,7 @@ authController.register = async (req, res) => {
                 console.log('Something went wrong with your register')
             
         }
+        // part where encrypc password
         const newPassword = bcrypt.hashSync(req.body.password, 8);
         const newUser = await User.create ({
             email: req.body.email,
@@ -62,15 +63,16 @@ authController.login = async (req, res) => {
         if (!user) {
             return res.json({
                 success: true,
-                message: "Wrong credentials"
+                message: "Wrong email"
             });
         }
+        // Validation of password
         const isMatch = bcrypt.compareSync(password, user.password);
 
         if(!isMatch) {
             return res.json({
                 success: true,
-                message: "Wrong credentials 2"
+                message: "Wrong password"
             })
         }
         const token = jwt.sign({

@@ -2,16 +2,16 @@ const express = require("express");
 const db = require('./db');
 const router = require("./router");
 const auth = require('./middlewares/verifyToken');
+const authController = require('./controllers/authController');
 const app = express();
 const PORT = 9000;
 
 app.use(express.json());
 app.use(router);
 
-// app.get('/needToSleep', (req, res) => {
-//     return res.send('needToSleepy');
-// })
-
+app.get('/health', auth, (req, res) => {
+    return res.send('healthy');
+})
 
 db.then(() => {
     app.listen(PORT, () => {
