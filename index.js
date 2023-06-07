@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require('./db');
 const router = require("./router");
+const auth = require('./middlewares/verifyToken');
 const app = express();
 const PORT = 9000;
 

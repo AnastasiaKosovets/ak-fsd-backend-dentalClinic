@@ -1,7 +1,10 @@
 const authController = {};
 // vinculated with User model
 const { User } = require('../models');
+// encrypt password of user register
 const bcrypt = require('bcrypt');
+// create token function
+const jwt = require('jsonwebtoken');
 
 // Create register part fot New User
 authController.register = async (req, res) => {
@@ -28,6 +31,7 @@ authController.register = async (req, res) => {
                 return res.send('Invalid collegiate number');
             default:
                 console.log('Something went wrong with your register')
+            
         }
         const newPassword = bcrypt.hashSync(req.body.password, 8);
         const newUser = await User.create ({
@@ -49,6 +53,37 @@ authController.register = async (req, res) => {
 
 authController.login = async (req, res) => {
     try {
+        const { email, password } = req.body;
+        const user = await User.findOne({
+            where: {
+                email: email
+            }
+        });
+        if (!user) {
+            return res.json({
+                success: true,
+                message: "Wrong credentials"
+            });
+        }
+        const isMatch = bcrypt.compareSync(password, user.password);
+
+        if(!isMatch) {
+            return res.json({
+                success: true,
+                message: "Wrong credentials 2"
+            })
+        }
+        const token = jwt.sign({
+            userId: user.id,
+            role_id: user.role_id,
+            email: user.email
+        },
+        'secret',
+        {
+            expiresIn: "2h"
+        });
+        console.log('Token is: ' + token);
+        return res.send('User logged');
         
     } catch (error) {
         return res.status(500).json({
