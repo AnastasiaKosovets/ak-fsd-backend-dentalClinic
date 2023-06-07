@@ -15,13 +15,11 @@ userController.getAllUsers =  async(req, res) => {
             data: users
         })
     } catch (error) {
-        return res.status(500).json(
-            {
+        return res.status(500).json({
                 success: false,
                 message: "Users cant be retrieved",
                 error: error
-            }
-        )    
+            })    
     }
 }
 
@@ -34,12 +32,10 @@ userController.updateUser = async (req, res) => {
         const user = await User.findByPk(userId);
 
         if(!user) {
-            return res.json(
-                {
+            return res.json({
                     success: true,
                     message: "User doesn't exist"
-                }
-            );
+                });
         };
 
         const {email, password, firstName, lastName, document, address, telefonNumber, collegialNumber, role_id} = req.body;
@@ -62,21 +58,42 @@ userController.updateUser = async (req, res) => {
                 }
             }
         )
-        return res.json(
-            {
+        return res.json({
                 success: true,
                 message: "User updated",
                 data: userUpdated
-            }
-        );
+            });
+
     } catch (error) {
-        return res.status(500).json(
-            {
+        return res.status(500).json({
                 success: false,
                 message: "User can't be updated",
                 error: error
+            })
+    }
+}
+
+userController.deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const deleteUser = await User.destroy({
+            where: {
+                id: userId
             }
-        )
+        })
+        return res.json({
+            success: true,
+            message: "User deleted successfully",
+            data: deleteUser
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "User can't be deleted",
+            error: error
+        })
+        
     }
 }
 
