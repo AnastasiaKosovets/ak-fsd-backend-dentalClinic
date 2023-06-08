@@ -115,6 +115,20 @@ module.exports = {
         role_id: 3,
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        id: 9,
+        email: "anastasia@anastasia.com",
+        password: bcrypt.hashSync('adminpass1', 8),
+        firstName: "Anastasia",
+        lastName: "Kosovets",
+        document: "123456789",
+        address: "C/san Antonio, 2, San Antonio de Benageber, Valencia, 46184",
+        telefonNumber: "724647278",
+        collegialNumber: null,
+        role_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
      ])
   },

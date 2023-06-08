@@ -1,5 +1,5 @@
 // create token 
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 // create conditional for token 
 const auth = (req, res, next) => {
     try {
