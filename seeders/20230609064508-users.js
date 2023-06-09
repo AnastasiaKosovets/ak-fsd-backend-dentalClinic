@@ -3,7 +3,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('Users', [
+    const bcrypt = require('bcrypt');
+    
+    await queryInterface.bulkInsert('Users', [
       {
         id: 1,
         email: "fran35@fran.com",
