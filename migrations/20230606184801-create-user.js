@@ -24,6 +24,9 @@ module.exports = {
       document: {
         type: Sequelize.STRING
       },
+      dateOfBirth: {
+        type: Sequelize.STRING
+      },
       address: {
         type: Sequelize.STRING
       },
