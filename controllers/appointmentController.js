@@ -21,82 +21,86 @@ appointmentController.getAllAppointments =  async(req, res) => {
     }
 }
 
-// treatmentController.createTreatment = async (req, res) => {
-//     try{
-//         const { treatmentName, description, price } = req.body
-//         const newTreatment = await Treatment.create({
-//             treatmentName: treatmentName,
-//             description: description,
-//             price: price
-//         });
-//         return res.json({
-//             success: true,
-//             message: "New Treatment was created",
-//             data: newTreatment
-//         });
-//     } catch(error) {
-//         return res.status(500).json({
-//             success: false,
-//             message: "Treatment can't be created",
-//             error: error.message
-//         });
-//     }
-// }
+appointmentController.createAppointment = async (req, res) => {
+    try{
+        const { user_id1, user_id2, treatment_id, price, date } = req.body;
+        const newAppointment = await Appointment.create({
+            user_id1: user_id1,
+            user_id2: user_id2,
+            treatment_id: treatment_id,
+            price: price,
+            date: date
+        });
+        return res.json({
+            success: true,
+            message: "New Appointment was created",
+            data: newAppointment
+        });
+    } catch(error) {
+        return res.status(500).json({
+            success: false,
+            message: "Appointment can't be created",
+            error: error.message
+        });
+    }
+}
 
-// treatmentController.updateTreatment = async (req, res) => {
+appointmentController.updateAppointment = async (req, res) => {
 
     
 
-//     try {
-//         const treatmentId = req.params.id;
-//         const { treatmentName, description, price, } = req.body;
+    try {
+        const appointmentId = req.params.id;
+        const { user_id1, user_id2, treatment_id, price, date } = req.body
         
-//         const updatedTreatment = await Treatment.update({
-//             treatmentName: treatmentName,
-//             description: description,
-//             price: price
-//         },
-//         {
-//             where: {
-//                 id: treatmentId
-//             }
-//         });
-//         return res.json({
-//                 success: true,
-//                 message: "Treatment updated",
-//                 data: updatedTreatment
-//             });
+        const updatedAppointment = await Appointment.update({
+            user_id1: user_id1,
+            user_id2: user_id2,
+            treatment_id: treatment_id,
+            price: price,
+            date: date
+        },
+        {
+            where: {
+                id: appointmentId
+            }
+        });
+        return res.json({
+                success: true,
+                message: "Appointment updated",
+                data: updatedAppointment
+            });
 
-//     } catch (error) {
-//         return res.status(500).json({
-//                 success: false,
-//                 message: "Treatment can't be updated",
-//                 error: error.message
-//             })
-//     }
-// }
+    } catch (error) {
+        return res.status(500).json({
+                success: false,
+                message: "Appointment can't be updated",
+                error: error.message
+            })
+    }
+}
 
-// treatmentController.deleteTreatment = async (req, res) => {
-//     try {
-//         const treatmentId = req.params.id;
-//         const deleteTreatment = await Treatment.destroy({
-//             where: {
-//                 id: treatmentId
-//             }
-//         })
-//         return res.json({
-//             success: true,
-//             message: "Treatment deleted successfully",
-//             data: deleteTreatment
-//         });
+appointmentController.deleteAppointment = async (req, res) => {
+    try {
+        const appointmentId = req.params.id;
+        const deleteAppointment = await Appointment.destroy({
+            where: {
+                id: appointmentId
+            }
+        })
+        return res.json({
+            success: true,
+            message: "Appointment deleted successfully",
+            data: deleteAppointment
+        });
 
-//     } catch (error) {
-//         return res.status(500).json({
-//             success: false,
-//             message: "Treatment can't be deleted",
-//             error: error.message
-//         })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Appointment can't be deleted",
+            error: error.message
+        })
         
-//     }
-// }
+    }
+}
 module.exports = appointmentController;
