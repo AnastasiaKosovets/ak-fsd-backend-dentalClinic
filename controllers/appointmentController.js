@@ -46,12 +46,7 @@ appointmentController.getMyAppointment =  async(req, res) => {
 
 appointmentController.getAllAppointmentDoctor =  async(req, res) => {
     try {
-        const userId = req.userId;
-        const appointments = await Appointment.findAll({
-            where: {
-                user_id1: userId
-            }
-        });
+        const appointments = await Appointment.findAll();
 
         return res.json({
             success: true,
