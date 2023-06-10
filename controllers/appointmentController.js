@@ -3,23 +3,23 @@ const appointmentController = {};
 const authController = require("./authController");
 const isAdmin = require('../middlewares/isAdmin');
 
-appointmentController.getAllAppointments =  async(req, res) => {
-    try {
-        const appointments = await Appointment.findAll();
+// appointmentController.getAllAppointments =  async(req, res) => {
+//     try {
+//         const appointments = await Appointment.findAll();
 
-        return res.json({
-            success: true,
-            message: "Appointment retrieved",
-            data: appointments
-        })
-    } catch (error) {
-        return res.status(500).json({
-                success: false,
-                message: "Appointment can't be retrieved",
-                error: error.message
-            })    
-    }
-}
+//         return res.json({
+//             success: true,
+//             message: "Appointment retrieved",
+//             data: appointments
+//         })
+//     } catch (error) {
+//         return res.status(500).json({
+//                 success: false,
+//                 message: "Appointment can't be retrieved",
+//                 error: error.message
+//             })    
+//     }
+// }
 
 appointmentController.getMyAppointment =  async(req, res) => {
     try {
