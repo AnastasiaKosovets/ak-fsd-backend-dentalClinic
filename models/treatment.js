@@ -13,13 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Treatment.hasMany(models.Appointment, {
         foreignKey: 'treatment_id'
-      })
+      });
     }
   }
   Treatment.init({
     treatmentName: DataTypes.STRING,
     description: DataTypes.STRING,
-    price: DataTypes.INTEGER
+    price: DataTypes.INTEGER,
+    appointment_id: DataTypes.INTEGER
+
   }, {
     sequelize,
     modelName: 'Treatment',
