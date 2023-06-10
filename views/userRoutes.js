@@ -1,7 +1,8 @@
-const userController = require('../controllers/userController');
-const isAdmin = require('../middlewares/isAdmin');
-const auth = require('../middlewares/verifyToken');
 const router = require('express').Router();
+const userController = require('../controllers/userController');
+const auth = require('../middlewares/verifyToken');
+const isAdmin = require('../middlewares/isAdmin');
+
 
 router.get('/', auth, userController.getAllUsers);
 router.put('/:id', auth, isAdmin, userController.updateUser);

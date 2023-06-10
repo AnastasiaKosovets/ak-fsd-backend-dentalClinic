@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       treatmentName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       description: {
         type: Sequelize.STRING

@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
         if (!bearerToken) {
             return res.json({
                 success: true,
-                message: "Error"
+                message: "Error, token not provided"
             })
         }
         const token = bearerToken.split(" ")[1];
