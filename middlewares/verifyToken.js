@@ -14,6 +14,7 @@ const auth = (req, res, next) => {
         const decoded = jwt.verify(token, 'secret');
         req.userId = decoded.userId;
         req.roleId = decoded.roleId;
+        // verify informationb of login
         next();
 
         } catch (error) {

@@ -11,8 +11,8 @@ const isAdmin = (req, res, next) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "You don't have permissions",
-            error: error
+            message: "Something went wrong",
+            error: error.message
         })
     }
 }
