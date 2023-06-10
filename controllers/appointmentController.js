@@ -21,6 +21,29 @@ appointmentController.getAllAppointments =  async(req, res) => {
     }
 }
 
+appointmentController.getMyAppointment =  async(req, res) => {
+    try {
+        const userId = req.userId;
+        const appointments = await Appointment.findAll({
+            where: {
+                user_id2: userId
+            }
+        });
+
+        return res.json({
+            success: true,
+            message: "Appointment retrieved",
+            data: appointments
+        })
+    } catch (error) {
+        return res.status(500).json({
+                success: false,
+                message: "Appointment can't be retrieved",
+                error: error.message
+            })    
+    }
+}
+
 appointmentController.createAppointment = async (req, res) => {
     try{
         const { user_id1, user_id2, treatment_id, price, date } = req.body;
