@@ -20,6 +20,28 @@ treatmentController.getAllTreatments =  async(req, res) => {
     }
 }
 
+treatmentController.createTreatment = async (req, res) => {
+    try{
+        const { treatmentName, description, price } = req.body
+        const newTreatment = await Treatment.create({
+            treatmentName: treatmentName,
+            description: description,
+            price: price
+        });
+        return res.json({
+            success: true,
+            message: "New Treatment was created",
+            data: newTreatment
+        });
+    } catch(error) {
+        return res.status(500).json({
+            success: false,
+            message: "Treatment can't be created",
+            error: error.message
+        });
+    }
+}
+
 treatmentController.updateTreatment = async (req, res) => {
 
     

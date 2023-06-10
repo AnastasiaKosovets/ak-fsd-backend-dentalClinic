@@ -4,6 +4,8 @@ const auth = require('../middlewares/verifyToken');
 const router = require('express').Router();
 
 router.get('/', treatmentController.getAllTreatments);
+router.post('/', treatmentController.createTreatment);
 router.put('/:id', auth, isAdmin, treatmentController.updateTreatment);
-router.delete('/:id', auth, isAdmin, treatmentController.deleteTreatment)
+router.delete('/:id', auth, isAdmin, treatmentController.deleteTreatment);
+
 module.exports = router;
