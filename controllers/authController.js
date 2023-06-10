@@ -1,10 +1,11 @@
-const authController = {};
+
 // vinculated with User model
 const { User } = require('../models');
 // encrypt password of user register
 const bcrypt = require('bcrypt');
 // create token function
 const jwt = require('jsonwebtoken');
+const authController = {};
 
 // Create register part fot New User
 authController.register = async (req, res) => {
@@ -77,7 +78,7 @@ authController.login = async (req, res) => {
         }
         const token = jwt.sign({
             userId: user.id,
-            role_id: user.role_id,
+            roleId: user.role_id,
             email: user.email
         },
         'secret',
@@ -85,7 +86,12 @@ authController.login = async (req, res) => {
             expiresIn: "2h"
         });
         console.log('Token is: ' + token);
-        return res.send('User logged');
+
+        return res.json({
+            success: true,
+            message: "User logged",
+            token: token
+        });
         
     } catch (error) {
         return res.status(500).json({

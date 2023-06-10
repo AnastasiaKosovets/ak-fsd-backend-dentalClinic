@@ -1,6 +1,7 @@
 // create token 
 const jwt = require('jsonwebtoken');
 // create conditional for token 
+// const token = jwt.sign({ userId: 9, roleId: 1}, 'secret');
 const auth = (req, res, next) => {
     try {
         const bearerToken = req.headers.authorization;
@@ -14,7 +15,7 @@ const auth = (req, res, next) => {
         const decoded = jwt.verify(token, 'secret');
         req.userId = decoded.userId;
         req.roleId = decoded.roleId;
-        // verify informationb of login
+        // verify information of login
         next();
 
         } catch (error) {

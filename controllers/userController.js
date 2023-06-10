@@ -1,6 +1,6 @@
 const { User } = require("../models");
 const userController = {};
-const authController = require("./authController");
+// const authController = require("./authController");
 const bcrypt = require("bcrypt");
 
 
