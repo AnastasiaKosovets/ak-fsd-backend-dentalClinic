@@ -7,7 +7,8 @@ const isAdmin = require('../middlewares/isAdmin');
 
 // router.get('/', appointmentController.getAllAppointments);
 router.get('/', auth, isDoctor, appointmentController.getAllAppointmentDoctor);
-router.get('/:id', auth, appointmentController.getMyAppointment);
+router.get('/', auth, isAdmin, appointmentController.getAllAppointmentDoctor);
+router.get('/myAppointment', auth, appointmentController.getMyAppointment);
 router.post('/', auth, isAdmin, appointmentController.createAppointment);
 router.put('/:id', auth, isAdmin, appointmentController.updateAppointment);
 router.delete('/:id', auth, isAdmin, appointmentController.deleteAppointment);

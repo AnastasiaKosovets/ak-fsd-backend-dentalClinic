@@ -3,9 +3,14 @@ const appointmentController = {};
 const authController = require("./authController");
 const isAdmin = require('../middlewares/isAdmin');
 
-// appointmentController.getAllAppointments =  async(req, res) => {
+// appointmentController.getMyAppointment =  async(req, res) => {
 //     try {
-//         const appointments = await Appointment.findAll();
+//         const userId = req.userId;
+//         const appointments = await Appointment.findAll({
+//             where: {
+//                 user_id2: userId
+//             }
+//         });
 
 //         return res.json({
 //             success: true,
@@ -24,16 +29,16 @@ const isAdmin = require('../middlewares/isAdmin');
 appointmentController.getMyAppointment =  async(req, res) => {
     try {
         const userId = req.userId;
-        const appointments = await Appointment.findAll({
-            where: {
-                user_id2: userId
+        const getMyAppointment = await Appointment.findByPk(userId,{
+            attributes: {
+                exclude: ["id", "createdAt", "updatedAt"]
             }
         });
 
         return res.json({
             success: true,
             message: "Appointment retrieved",
-            data: appointments
+            data: getMyAppointment
         })
     } catch (error) {
         return res.status(500).json({
