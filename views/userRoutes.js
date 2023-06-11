@@ -6,7 +6,7 @@ const isDoctor = require('../middlewares/isDoctor');
 
 
 router.get('/', auth, isAdmin, userController.getAllUsers);
-router.get('/', auth, isDoctor, userController.getAllUsers);
+router.get('/patients', auth, isDoctor, userController.getAllPatients);
 router.put('/:id', auth, isAdmin, userController.updateUser);
 router.delete('/:id', auth, isAdmin, userController.deleteUser);
 
