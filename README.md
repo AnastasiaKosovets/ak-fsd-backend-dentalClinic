@@ -2,45 +2,40 @@
 
 <h1 align="center">Fourth project in Geekshubs Academy FSD 04-2023</h1>
 
+!['imagen-db'](./img/MergedImages.png)
+
 <details>
-  <summary>Contet 📝</summary>
+  <summary>Contet: 📝</summary>
   <ol>
-    <li><a href="#objetivo">Objetivo</a></li>
-    <li><a href="#sobre-el-proyecto">Sobre el proyecto</a></li>
-    <!-- <li><a href="#deploy-🚀">Deploy</a></li> -->
+    <li><a href="#target">Target</a></li>
+    <li><a href="#about-the-project">About the project</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#diagrama-bd">Diagrama</a></li>
-    <li><a href="#instalación-en-local">Instalación</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#project-structure">Project structure</a></li>
     <li><a href="#endpoints">Endpoints</a></li>
-    <li><a href="#futuras-funcionalidades">Futuras funcionalidades</a></li>
-    <li><a href="#contribuciones">Contribuciones</a></li>
-    <li><a href="#licencia">Licencia</a></li>
+    <li><a href="#contributions">Contributions</a></li>
+    <li><a href="#license">License</a></li>
     <li><a href="#webgrafia">Webgrafia</a></li>
-    <li><a href="#desarrollo">Desarrollo</a></li>
-    <li><a href="#agradecimientos">Agradecimientos</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#contacts">Contacts</a></li>
   </ol>
 </details>
 
-## Objetivo
-Este proyecto requería una API funcional conectada a una base de datos con al menos una relación de uno a muchos y una relación de muchos a muchos. Poniendo en práctica los conocimientos adqueridos principalmente con sequelize - express.
+## Target
+This project required a functional API connected to a database with at least a one-to-many and a many-to-many relationship. Putting into practice the knowledge acquired mainly with sequelize - express.
 
-## Sobre el proyecto
-Este proyecto consestía en crear una aplicación web para de un aclínica dental, en la cual tendríamos varias funcionalidades como:
-- registro de usuario
-- acceso al login
-- acceso al perfil de usuario
-- modificación de perfil según los permisos
-- acceso a las citas y su modificación
-- ver las citas propias(usuario, doctor) 
-- ver todas las citas según los permisos
+## About the project
+This project consisted of creating a web application for a dental clinic, in which we would have several features such as:
+- user registration
+- login access
+- access to user profile
+- profile modification according to permissions
+- access to appointments and their modification
+- view own appointments (user, doctor) 
+- view all appointments according to permissions
 
-Estuve investigando varias app de este estilo para ver la estructura y poder aplicar mejor todos los puntos y funcionalidades.  
-
-<!-- ## Deploy 🚀
-<div align="center">
-    <a href="https://www.google.com"><strong>Url a producción </strong></a>🚀🚀🚀
-</div> -->
+I was investigating several apps of this style to see the structure and to be able to better apply all the points and functionalities. 
 
 ## Stack
 <p>Technologies that has been used:</p>
@@ -81,7 +76,7 @@ Estuve investigando varias app de este estilo para ver la estructura y poder apl
 ## Diagrama BD
 !['imagen-db'](./img/BD%20Dental%20Clinic.png)
 
-## Instalación en local
+## Installation
 
 1. Clone the project on your computer with git bash:
  `$git clone 'url-repository'`
@@ -96,7 +91,7 @@ Estuve investigando varias app de este estilo para ver la estructura y poder apl
  ``` $ npx sequelize-cli db:seed:all ```
 
 ## Project structure
-Me he basado partiendo de creación de CRUD básico. Este proyecto tiene siguiente estructura:
+I have based on the creation of basic CRUD. This project has the following structure:
 -	Index.js: This is the main file.
 -	Config.
       - Config.json: This file is created automatically by sequelize and it managed the configuration to connect to the database.
@@ -107,7 +102,6 @@ Me he basado partiendo de creación de CRUD básico. Este proyecto tiene siguien
 -	db.js: Shows the configuration that must have into .env file that must be created for the application to work.
     ```PORT = PORT```
     ```JWT_SECRET = SECRET```
-
 -	Router.js: This file manages the different paths that the application can have. He creado varias rutas para poder gestionar mejor la informacion
 -	Views:
       - appointmentRoutes.js: In this file we manage the endpoints that point to that route.
@@ -125,78 +119,177 @@ Me he basado partiendo de creación de CRUD básico. Este proyecto tiene siguien
 - AUTH
     - REGISTER
 
-            POST http://localhost:3000/api/register
+            POST http://localhost:9000/auth/register
         body:
         ``` js
             {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
+                "email": "prueba@prueba.com",
+                "password": "1234",
+                "firstName": "Prueba"
+                "lastName": "Prueba"
+                "document": "123456789"
+                "address": "prueba"
+                "telefonNumber": "123456789"
+                "collegialNumber": "123456789"
             }
         ```
 
     - LOGIN
 
-            POST http://localhost:3000/api/login  
+            POST http://localhost:9000/auth/login  
         body:
         ``` js
             {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
+                "email": "prueba@prueba.com",
+                "password": "1234"
             }
         ```
-- RUTINAS
-    - RECUPERAR RUTINAS  
-
-            GET http://localhost:3000/api/rutina
-
-    - ...
 </details>
 
-## Contribuciones
-Las sugerencias y aportaciones son siempre bienvenidas.  
+- Create appointment:
+    - Create appointment only for the logged in user through postman with POST option.
 
-Puedes hacerlo de dos maneras:
+            POST:   http://localhost:9000/app
+        body:
+        ``` bash
+        {
+            "user_id1": "1",
+            "user_id2": "1",
+            "treatment_id": "3",
+            "price": 10,
+            "date": "2023-06-12"
+        }
+        ```
+- Cancel appointment by Admin: 
+    - CANCEL petition to delete any user appointments currently in the database.
+  
+            DELETE:   http://localhost:9000/appointments/:id
+    You must indicate in the url the ID number of the appointment.
+- Check all appointments by Admin: 
+    - GET a list of all users' appointments.
+  
+            GET:   http://localhost:9000/appointments
+- Check all appointments by Doctor: 
+    - GET a list of all appointments.
+  
+            GET:   http://localhost:9000/appointments/doctorsAppointment
+- Check personal appointment by User: 
+    - GET a list of all appointments.
+            GET:   http://localhost:9000/appointments/myAppointment
+   
+- Check profile: 
+    - GET petition to see the user´s own profile.
+  
+            GET:   http://localhost:9000/users/profile
+- Update profile: 
+    - We update profile from the logged user.
+  
+            PUT:   http://localhost:9000/users/:id
+        body:
+    
+        ``` bash
+        {
+            "email": "prueba@prueba.com",
+            "password": "1234",
+            "firstName": "prueba",
+            "lastName": "prueba",
+            "document": "123456789",
+            "address": "c/tal, Valencia",
+            "telefonNumber": "123456789",
+            "collegialNumber": "123456789",
+            "role_id": 2
+        }
+        ```
+- Check all user profiles by Admin: 
+    - GET petition to see the user´s profile, if you are logged like an Admin, will show all the information about the users.
+  
+            GET:   http://localhost:9000/users
+- Check all user profiles by Doctor: 
+    - GET petition to see the user´s profile, if you are logged like a doctor, will show only the relevant information about the users.
+  
+            GET:   http://localhost:9000/users/patients
+- Delete treatment by Admin: 
 
-1. Abriendo una issue
-2. Crea un fork del repositorio
-    - Crea una nueva rama  
+            DELETE:   http://localhost:9000/treatments/:id
+    You must indicate in the url the ID number of the treatment.
+</details>
+
+- Update user by Admin:
+    - Update profile from the logged Admin.
+
+            POST:   http://localhost:9000/users/:id
+        body:
+        ``` bash
+        {
+            "email":"",
+            "password":"",
+            "firstName":"",
+            "lastName":"",
+            "document":"",
+            "address":"",
+            "telefonNumber":"",
+            "collegialNumber":"",
+            "role_id":""
+        }
+        ```
+- Delete user by Admin:
+    - Delete user and all info by Admin.
+
+            POST:   http://localhost:9000/users/:id
+
+        is required user_id.
+
+- Create treatment:
+    - Create treatment by Admin
+
+            POST:   http://localhost:9000/treatments
+        body:
+        ``` bash
+        {
+            "treatmentName": "",
+            "description": "",
+            "price": 10,
+        }
+        ```
+</details>
+
+
+## Contributions
+Suggestions and contributions are always welcome.  
+
+You can do this in two ways:
+
+1. Opening an issue
+2. Create a fork of the repository
+    - Create a new branch
         ```
         $ git checkout -b feature/nombreUsuario-mejora
         ```
-    - Haz un commit con tus cambios 
+    - Make a commit with your changes 
         ```
-        $ git commit -m 'feat: mejora X cosa'
+        $ git commit -m 'feat: mejora tal parte'
         ```
-    - Haz push a la rama 
+    - Make push to the branch 
         ```
         $ git push origin feature/nombreUsuario-mejora
         ```
-    - Abre una solicitud de Pull Request
+    - Open a Pull Request
 
 ## Licencia
-Este proyecto se encuentra bajo licencia de "Mi Nombre"
+This project is under license from "My Name".
 
 ## Webgrafia:
-Para conseguir mi objetivo he recopilado información de:
-- link a repositorios 
-- link a documentacion de librerias externas
-- ...
+To achieve my goal I have collected information from:
+- [Sequelize documentation](https://sequelize.org/docs/v6/)
+- [Repository GeeksHubs](https://github.com/GeeksHubsAcademy/2023_04_VAL_AUTH_SEQUELIZE)  
 
-## Desarrollo:
+## Acknowledgments:
 
-``` js
- const developer = "datata";
+I thank my colleagues for their time dedicated to this project:
 
- console.log("Desarrollado por: " + datata);
-```  
-
-## Agradecimientos:
-
-Agradezco a mis compañeros el tiempo dedicado a este proyecto:
-
-- *Jose*  
+- ***Dani***  
+<a href="" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=blue" target="_blank"></a> 
+- **Jose** 
 <a href="https://github.com/Dave86dev" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a> 
 
 - **David**  
@@ -205,7 +298,7 @@ Agradezco a mis compañeros el tiempo dedicado a este proyecto:
 - ***Mara***  
 <a href="https://www.github.com/userGithub/" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
 
-## Contacto
-<a href = "mailto:micorreoelectronico@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/linkedinUser/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+## Contacts
+<a href = "mailto:anastasiakosovets@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/anastasia-kosovets-00022917b/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
 </p>
