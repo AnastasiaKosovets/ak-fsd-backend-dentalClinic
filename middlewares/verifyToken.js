@@ -1,9 +1,10 @@
-// create token 
+// Create token 
 const jwt = require('jsonwebtoken');
-// create conditional for token 
-// const token = jwt.sign({ userId: 9, roleId: 1}, 'secret');
+// Create conditional for token 
+// Const token = jwt.sign({ userId: 9, roleId: 1}, 'secret');
 const auth = (req, res, next) => {
     try {
+        // Verify if token was generated and with bearerToken we verify if token was defined
         const bearerToken = req.headers.authorization;
         if (!bearerToken) {
             return res.json({
@@ -11,6 +12,8 @@ const auth = (req, res, next) => {
                 message: "Error, token not provided"
             })
         }
+        // This part extract and decode token
+        // With .split we split token into an array
         const token = bearerToken.split(" ")[1];
         const decoded = jwt.verify(token, 'secret');
         req.userId = decoded.userId;

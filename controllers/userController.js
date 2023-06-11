@@ -8,6 +8,7 @@ const { Op } = require("sequelize");
 
 userController.getAllUsers =  async(req, res) => {
     try {
+        // This method extract all users
         const users = await User.findAll();
 
         return res.json({
@@ -80,6 +81,8 @@ userController.getAllPatients =  async(req, res) => {
 
 userController.getProfile =  async(req, res) => {
     try {
+        // with const userId we obtain valu of user ID and then
+        // perform a query on the user table using the findByPk method
         const userId = req.userId;
         const profile = await User.findByPk(userId,{
             attributes: {
@@ -115,7 +118,7 @@ userController.updateUser = async (req, res) => {
                     message: "User doesn't exist"
                 });
         };
-
+        // In this part we declare parameters to be able to update one user
         const {email, password, firstName, lastName, document, address, telefonNumber, collegialNumber, role_id} = req.body;
         
         const updatedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -153,6 +156,7 @@ userController.updateUser = async (req, res) => {
 
 userController.deleteUser = async (req, res) => {
     try {
+        // According to the ID of user and destroy method we can manage method of delete user
         const userId = req.params.id;
         const deleteUser = await User.destroy({
             where: {
