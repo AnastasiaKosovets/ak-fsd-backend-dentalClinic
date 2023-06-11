@@ -1,30 +1,8 @@
-const { Appointment } = require('../models');
+// const { Appointment } = require('../models');
+const { Appointment, User, Treatment } = require('../models');
 const appointmentController = {};
 const authController = require("./authController");
 const isAdmin = require('../middlewares/isAdmin');
-
-// appointmentController.getMyAppointment =  async(req, res) => {
-//     try {
-//         const userId = req.userId;
-//         const appointments = await Appointment.findAll({
-//             where: {
-//                 user_id2: userId
-//             }
-//         });
-
-//         return res.json({
-//             success: true,
-//             message: "Appointment retrieved",
-//             data: appointments
-//         })
-//     } catch (error) {
-//         return res.status(500).json({
-//                 success: false,
-//                 message: "Appointment can't be retrieved",
-//                 error: error.message
-//             })    
-//     }
-// }
 
 appointmentController.getMyAppointment =  async(req, res) => {
     try {
@@ -39,6 +17,32 @@ appointmentController.getMyAppointment =  async(req, res) => {
             success: true,
             message: "Appointment retrieved",
             data: getMyAppointment
+        })
+    } catch (error) {
+        return res.status(500).json({
+                success: false,
+                message: "Appointment can't be retrieved",
+                error: error.message
+            })    
+    }
+}
+
+appointmentController.getAppointment =  async(req, res) => {
+    try {
+        const {userId} = req;
+        const getAppointment = await Appointment.findAll({
+            where: {
+                user_id1: userId,
+            },
+            attributes: {
+                exclude: ["id", "createdAt", "updatedAt"]
+            }
+        });
+
+        return res.json({
+            success: true,
+            message: "Appointment retrieved",
+            data: getAppointment
         })
     } catch (error) {
         return res.status(500).json({
