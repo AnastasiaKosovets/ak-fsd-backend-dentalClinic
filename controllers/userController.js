@@ -77,6 +77,30 @@ userController.getAllPatients =  async(req, res) => {
             })    
     }
 }
+
+userController.getProfile =  async(req, res) => {
+    try {
+        const userId = req.userId;
+        const profile = await User.findByPk(userId,{
+            attributes: {
+                exclude: ["id", "role_id", "collegialNumber"]
+            }
+        });
+        
+        return res.json({
+            success: true,
+            message: "Profile retrieved",
+            data: profile
+        })
+    } catch (error) {
+        return res.status(500).json({
+                success: false,
+                message: "Profile can't be retrieved",
+                error: error.message
+            })    
+    }
+}
+
 userController.updateUser = async (req, res) => {
 
     // let body = req.body;
