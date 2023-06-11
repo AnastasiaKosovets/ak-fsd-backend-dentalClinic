@@ -175,6 +175,7 @@ I have based on the creation of basic CRUD. This project has the following struc
             GET:   http://localhost:9000/appointments/doctorsAppointment
 - Check personal appointment by User: 
     - GET a list of all appointments.
+    
             GET:   http://localhost:9000/appointments/myAppointment
    
 - Check profile: 
@@ -289,6 +290,7 @@ I thank my colleagues for their time dedicated to this project:
 
 - ***Dani***  
 <a href="" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=blue" target="_blank"></a> 
+
 - **Jose** 
 <a href="https://github.com/Dave86dev" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a> 
 
