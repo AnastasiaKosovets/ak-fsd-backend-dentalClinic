@@ -40,32 +40,6 @@ authController.register = async (req, res) => {
             role_id: 2
         });
         
-    // Esta expresión regular garantiza que la contraseña cumpla con los siguientes requisitos:
-    // Al menos una letra mayúscula.
-    // Al menos una letra minúscula.
-    // Al menos un número.
-    // Al menos un carácter especial (@, $, !, %, *, ?, &).
-    // Longitud entre 8 y 14 caracteres. 
-
-    //  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,14}$/;
-    //  const isValidPassword = passwordRegex.test(password)
-    //  if (!isValidPassword) {
-    //      return res.json({
-    //         success: true,
-    //         message: "Not a valid password"
-    //      })
-    //  }
-    
-    //     // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        // const isValidEmail = emailRegex.test(email);
-
-        // if (!isValidEmail) {
-        //     return res.json({
-        //         success: true,
-        //         message: "Not a valid email"
-        //     })
-        // }
-
         return res.send(newUser);
     } catch (error) {
         return res.send('Something went wrong creating user ' + error.message);
