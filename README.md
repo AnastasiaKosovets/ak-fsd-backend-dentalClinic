@@ -74,7 +74,7 @@ I was investigating several apps of this style to see the structure and to be ab
 
 
 ## Diagrama BD
-!['imagen-db'](./img/BD%20Dental%20Clinic.png)
+!['imagen-db'](./img/BDdentalClinic.png)
 
 ## Installation
 
