@@ -1,7 +1,5 @@
 const { Treatment } = require('../models');
 const treatmentController = {};
-// const authController = require("./authController");
-// const isAdmin = require('../middlewares/isAdmin');
 
 treatmentController.getAllTreatments =  async(req, res) => {
     try {

@@ -1,8 +1,5 @@
 const { Appointment, User, Treatment } = require('../models');
-// const { Appointment, User, Treatment } = require('../models');
 const appointmentController = {};
-// const authController = require("./authController");
-// const isAdmin = require('../middlewares/isAdmin');
 
 appointmentController.getMyAppointment =  async(req, res) => {
     try {
@@ -133,7 +130,7 @@ appointmentController.createAppointment = async (req, res) => {
     try{
         const userPatient = req.userId
         // This part allow acces to create new appointment
-        const { user_id1, treatment_id, price, date } = req.body;
+        const { user_id1, treatment_id, date } = req.body;
         const userDentis = await User.findByPk(user_id1);
 
         if(userDentis.role_id !==3){
@@ -146,7 +143,6 @@ appointmentController.createAppointment = async (req, res) => {
             user_id1: user_id1,
             user_id2: userPatient,
             treatment_id: treatment_id,
-            price: price,
             date: date
         });
         
