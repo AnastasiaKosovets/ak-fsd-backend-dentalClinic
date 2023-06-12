@@ -31,9 +31,9 @@ appointmentController.getMyAppointment =  async(req, res) => {
         })
         return res.json({
             success: true,
-            message: "blabla",
+            message: "Appointment retrieved",
             data: appointments
-            // meter aqui el user para qu enos lo devuelva
+            // meter aqui el user para que nos lo devuelva
         })
     } catch (error) {
         return res.status(500).json({
@@ -113,15 +113,25 @@ appointmentController.getAllAppointmentDoctor =  async(req, res) => {
 
 appointmentController.createAppointment = async (req, res) => {
     try{
+        const userPatient = req.userId
         // This part allow acces to create new appointment
-        const { user_id1, user_id2, treatment_id, price, date } = req.body;
+        const { user_id1, treatment_id, price, date } = req.body;
+        const userDentis = await User.findByPk(user_id1);
+
+        if(userDentis.role_id !== 1){
+            return res.json({
+                success: true,
+                message: "Incorrect doctor"
+            })
+        }
         const newAppointment = await Appointment.create({
             user_id1: user_id1,
-            user_id2: user_id2,
+            user_id2: userPatient,
             treatment_id: treatment_id,
             price: price,
             date: date
         });
+        
         return res.json({
             success: true,
             message: "New Appointment was created",

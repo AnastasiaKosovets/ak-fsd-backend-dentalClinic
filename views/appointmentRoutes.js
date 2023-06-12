@@ -10,7 +10,7 @@ router.get('/', auth, isDoctor, appointmentController.getAllAppointmentDoctor);
 router.get('/', auth, isAdmin, appointmentController.getAllAppointmentDoctor);
 router.get('/myAppointment', auth, appointmentController.getMyAppointment);
 router.get('/doctorsAppointment', auth, isDoctor, appointmentController.getAppointment);
-router.post('/', auth, isAdmin, appointmentController.createAppointment);
+router.post('/', auth, appointmentController.createAppointment);
 router.put('/:id', auth, isAdmin, appointmentController.updateAppointment);
 router.delete('/:id', auth, isAdmin, appointmentController.deleteAppointment);
 

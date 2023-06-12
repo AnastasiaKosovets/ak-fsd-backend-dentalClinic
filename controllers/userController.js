@@ -86,7 +86,7 @@ userController.getProfile =  async(req, res) => {
         const userId = req.userId;
         const profile = await User.findByPk(userId,{
             attributes: {
-                exclude: ["id", "role_id", "collegialNumber"]
+                exclude: ["id", "role_id", "collegialNumber", "password"]
             }
         });
         
