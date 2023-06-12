@@ -24,14 +24,6 @@ authController.register = async (req, res) => {
                 console.log('Something went wrong with your register')
             
         }
-        // const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-        // const isValidEmail = emailRegex.test(email);
-        // if(isValidEmail) {
-        //     return res.json({
-        //         success: true,
-        //         message: "Not a valid email"
-        //     })
-        // }
         
         // Part where encrypc password
         const newPassword = bcrypt.hashSync(req.body.password, 8);
@@ -41,14 +33,26 @@ authController.register = async (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             document: req.body.document,
+            dateOfBirth: req.body.dateOfBirth,
             address: req.body.address,
             telefonNumber: req.body.telefonNumber,
             collegialNumber: req.body.collegialNumber,
             role_id: 1
         });
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const isValidEmail = emailRegex.test(email);
+
+        if (!isValidEmail) {
+            return res.json({
+                success: true,
+                message: "Not a valid email"
+            })
+        }
+
         return res.send(newUser);
     } catch (error) {
-        return res.send('Something went wrong creating user' + error.message);
+        return res.send('Something went wrong creating user ' + error.message);
     }
 }
 
