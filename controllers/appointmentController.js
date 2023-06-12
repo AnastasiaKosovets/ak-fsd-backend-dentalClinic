@@ -118,7 +118,7 @@ appointmentController.createAppointment = async (req, res) => {
         const { user_id1, treatment_id, price, date } = req.body;
         const userDentis = await User.findByPk(user_id1);
 
-        if(userDentis.role_id !== 1){
+        if(userDentis.role_id !==3){
             return res.json({
                 success: true,
                 message: "Incorrect doctor"
