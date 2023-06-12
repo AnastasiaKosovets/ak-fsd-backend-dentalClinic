@@ -5,7 +5,7 @@ const isDoctor = require('../middlewares/isDoctor');
 const isAdmin = require('../middlewares/isAdmin');
 
 
-router.get('/', appointmentController.getAllAppointments);
+// router.get('/', appointmentController.getAllAppointments);
 router.get('/', auth, isDoctor, appointmentController.getAllAppointmentDoctor);
 router.get('/', auth, isAdmin, appointmentController.getAllAppointmentDoctor);
 router.get('/myAppointment', auth, appointmentController.getMyAppointment);

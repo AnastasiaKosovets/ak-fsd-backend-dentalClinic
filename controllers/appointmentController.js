@@ -1,31 +1,68 @@
-// const { Appointment } = require('../models');
 const { Appointment, User, Treatment } = require('../models');
+// const { Appointment, User, Treatment } = require('../models');
 const appointmentController = {};
-const authController = require("./authController");
-const isAdmin = require('../middlewares/isAdmin');
+// const authController = require("./authController");
+// const isAdmin = require('../middlewares/isAdmin');
 
 appointmentController.getMyAppointment =  async(req, res) => {
     try {
-        // This method extract appointment of user
-        const userId = req.userId;
-        const getMyAppointment = await Appointment.findByPk(userId,{
-            attributes: {
-                exclude: ["id", "createdAt", "updatedAt"]
+        const appointments = await Appointment.findAll({
+            where: {
+                user_id2: req.userId
+            },
+            attributes: ["date"],
+            include: [
+                {
+                    model: User,
+                    as: "patient",
+                    attributes: ["firstName", "lastName"]
+                },
+                {
+                model: Treatment,
+                as: "treatment",
+                attributes: ["treatmentName", "description"]
+            },
+            {
+                model: User,
+                as: "doctor",
+                attributes: ["firstName", "lastName"]
             }
-        });
-
+        ]
+        })
         return res.json({
             success: true,
-            message: "Appointment retrieved",
-            data: getMyAppointment
+            message: "blabla",
+            data: appointments
+            // meter aqui el user para qu enos lo devuelva
         })
     } catch (error) {
         return res.status(500).json({
-                success: false,
-                message: "Appointment can't be retrieved",
-                error: error.message
-            })    
+            success: false,
+            message: "error error",
+            error: error.message
+        })
     }
+    // try {
+    //     // This method extract appointment of user
+    //     const userId = req.userId;
+    //     const getMyAppointment = await Appointment.findByPk(userId,{
+    //         attributes: {
+    //             // exclude: ["id", "createdAt", "updatedAt"],
+    //         }
+    //     });
+
+    //     return res.json({
+    //         success: true,
+    //         message: "Appointment retrieved",
+    //         data: getMyAppointment
+    //     })
+    // } catch (error) {
+    //     return res.status(500).json({
+    //             success: false,
+    //             message: "Appointment can't be retrieved",
+    //             error: error.message
+    //         })    
+    // }
 }
 
 appointmentController.getAppointment =  async(req, res) => {
