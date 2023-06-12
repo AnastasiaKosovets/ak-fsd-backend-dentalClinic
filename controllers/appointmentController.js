@@ -42,27 +42,6 @@ appointmentController.getMyAppointment =  async(req, res) => {
             error: error.message
         })
     }
-    // try {
-    //     // This method extract appointment of user
-    //     const userId = req.userId;
-    //     const getMyAppointment = await Appointment.findByPk(userId,{
-    //         attributes: {
-    //             // exclude: ["id", "createdAt", "updatedAt"],
-    //         }
-    //     });
-
-    //     return res.json({
-    //         success: true,
-    //         message: "Appointment retrieved",
-    //         data: getMyAppointment
-    //     })
-    // } catch (error) {
-    //     return res.status(500).json({
-    //             success: false,
-    //             message: "Appointment can't be retrieved",
-    //             error: error.message
-    //         })    
-    // }
 }
 
 appointmentController.getAppointment =  async(req, res) => {
@@ -73,9 +52,27 @@ appointmentController.getAppointment =  async(req, res) => {
             where: {
                 user_id1: userId,
             },
-            attributes: {
-                exclude: ["id", "createdAt", "updatedAt"]
+            attributes: ["date"],
+            include: [
+                {
+                    model: User,
+                    as: "patient",
+                    attributes: ["firstName", "lastName"]
+                },
+                {
+                model: Treatment,
+                as: "treatment",
+                attributes: ["treatmentName", "description"]
+            },
+            {
+                model: User,
+                as: "doctor",
+                attributes: ["firstName", "lastName"]
             }
+        ]
+            // attributes: {
+            //     exclude: ["id", "createdAt", "updatedAt"]
+            // }
         });
 
         return res.json({
@@ -92,10 +89,31 @@ appointmentController.getAppointment =  async(req, res) => {
     }
 }
 
-appointmentController.getAllAppointmentDoctor =  async(req, res) => {
+appointmentController.getAllAppointments =  async(req, res) => {
     try {
         // This part allow acces to all appointments by Doctor
-        const appointments = await Appointment.findAll();
+    
+        const appointments = await Appointment.findAll({
+            
+            attributes: ["date"],
+            include: [
+                {
+                    model: User,
+                    as: "patient",
+                    attributes: ["firstName", "lastName"]
+                },
+                {
+                model: Treatment,
+                as: "treatment",
+                attributes: ["treatmentName", "description"]
+            },
+            {
+                model: User,
+                as: "doctor",
+                attributes: ["firstName", "lastName"]
+            }
+        ]
+        });
 
         return res.json({
             success: true,
