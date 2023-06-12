@@ -9,7 +9,7 @@ const authController = {};
 
 // Create register part fot New User
 authController.register = async (req, res) => {
-    // conditionals to correct register dates
+    // Conditionals to correct register dates
     try {
         switch (true) {
             case req.body.password.length < 4:
@@ -24,7 +24,16 @@ authController.register = async (req, res) => {
                 console.log('Something went wrong with your register')
             
         }
-        // part where encrypc password
+        // const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        // const isValidEmail = emailRegex.test(email);
+        // if(isValidEmail) {
+        //     return res.json({
+        //         success: true,
+        //         message: "Not a valid email"
+        //     })
+        // }
+        
+        // Part where encrypc password
         const newPassword = bcrypt.hashSync(req.body.password, 8);
         const newUser = await User.create ({
             email: req.body.email,
