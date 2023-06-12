@@ -89,6 +89,8 @@ I was investigating several apps of this style to see the structure and to be ab
  ``` $ npx sequelize-cli db:create ``` 
  ``` $ npx sequelize-cli db:migrate ``` 
  ``` $ npx sequelize-cli db:seed:all ```
+6. Run this file in postman to enable access to the endpoints of the project
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/27848105-73619373-328c-4846-b9cd-48b74e84c117?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D27848105-73619373-328c-4846-b9cd-48b74e84c117%26entityType%3Dcollection%26workspaceId%3Dc14731dc-3c93-48c6-811b-42a6a726ab8f)
 
 ## Project structure
 I have based on the creation of basic CRUD. This project has the following structure:
