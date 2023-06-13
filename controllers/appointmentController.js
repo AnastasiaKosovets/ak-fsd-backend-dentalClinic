@@ -1,7 +1,7 @@
 const { Appointment, User, Treatment } = require('../models');
 const appointmentController = {};
 
-appointmentController.getMyAppointment =  async(req, res) => {
+appointmentController.getMyAppointments =  async(req, res) => {
     try {
         const appointments = await Appointment.findAll({
             where: {
@@ -41,7 +41,7 @@ appointmentController.getMyAppointment =  async(req, res) => {
     }
 }
 
-appointmentController.getAppointment =  async(req, res) => {
+appointmentController.getAppointments =  async(req, res) => {
     try {
         // With this method Doctor can see how many appointments he has
         const {userId} = req;
