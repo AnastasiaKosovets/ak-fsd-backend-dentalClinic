@@ -9,18 +9,8 @@ const authController = {};
 
 // Create register part fot New User
 authController.register = async (req, res) => {
-    // conditionals to correct register dates
+    // Conditionals to correct register dates
     try {
-        // console.log(req.body);
-        // if (req.body.password.length < 4) {
-        //     return res.send('Password must be longer than 4 characters');
-        // } else if (req.body.document.length < 9){
-        //     return res.send('Invalid document');
-        // } else if (req.body.telefonNumber.length < 9){
-        //     return res.send('Wrong phone number lenght')
-        // } else if (req.body.document.length < 9){
-        //     return res.send('Invalid collegiate number')
-        // }
         switch (true) {
             case req.body.password.length < 4:
                 return res.send('Password must be longer than 4 characters');
@@ -34,7 +24,8 @@ authController.register = async (req, res) => {
                 console.log('Something went wrong with your register')
             
         }
-        // part where encrypc password
+        console.log("hola");
+        // Part where encrypc password
         const newPassword = bcrypt.hashSync(req.body.password, 8);
         const newUser = await User.create ({
             email: req.body.email,
@@ -42,11 +33,13 @@ authController.register = async (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             document: req.body.document,
+            dateOfBirth: req.body.dateOfBirth,
             address: req.body.address,
             telefonNumber: req.body.telefonNumber,
             collegialNumber: req.body.collegialNumber,
-            role_id: 1
+            role_id: 2
         });
+<<<<<<< HEAD
 
          // Esta expresión regular garantiza que la contraseña cumpla con los siguientes requisitos:
     // Al menos una letra mayúscula.
@@ -74,14 +67,18 @@ authController.register = async (req, res) => {
         //     })
         // }
 
+=======
+        
+>>>>>>> master
         return res.send(newUser);
     } catch (error) {
-        return res.send('Something went wrong creating user' + error.message);
+        return res.send('Something went wrong creating user ' + error.message);
     }
 }
 
 authController.login = async (req, res) => {
     try {
+        // Part of log in User
         const { email, password } = req.body;
         const user = await User.findOne({
             where: {
@@ -103,6 +100,7 @@ authController.login = async (req, res) => {
                 message: "Wrong password"
             })
         }
+        // Token part declared
         const token = jwt.sign({
             userId: user.id,
             roleId: user.role_id,

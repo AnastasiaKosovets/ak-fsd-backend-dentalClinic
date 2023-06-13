@@ -1,10 +1,9 @@
 const { Treatment } = require('../models');
 const treatmentController = {};
-const authController = require("./authController");
-const isAdmin = require('../middlewares/isAdmin');
 
 treatmentController.getAllTreatments =  async(req, res) => {
     try {
+        // This method allow extract all users
         const treatments = await Treatment.findAll();
 
         return res.json({
@@ -48,6 +47,7 @@ treatmentController.updateTreatment = async (req, res) => {
     
 
     try {
+        // In this part we declare parameters to be able to update treatment
         const treatmentId = req.params.id;
         const { treatmentName, description, price, } = req.body;
         
@@ -78,6 +78,7 @@ treatmentController.updateTreatment = async (req, res) => {
 
 treatmentController.deleteTreatment = async (req, res) => {
     try {
+        // According to the ID of treatment and destroy method we can manage method of delete treatment
         const treatmentId = req.params.id;
         const deleteTreatment = await Treatment.destroy({
             where: {

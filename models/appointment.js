@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         as: 'patient'
       });
       Appointment.belongsTo(models.Treatment, {
-        foreignKey: 'treatment_id'
+        foreignKey: 'treatment_id',
+        as: "treatment"
       })
     }
   }
