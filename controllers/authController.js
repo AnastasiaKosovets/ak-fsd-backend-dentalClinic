@@ -39,7 +39,7 @@ authController.register = async (req, res) => {
             collegialNumber: req.body.collegialNumber,
             role_id: 2
         });
-<<<<<<< HEAD
+
 
          // Esta expresión regular garantiza que la contraseña cumpla con los siguientes requisitos:
     // Al menos una letra mayúscula.
@@ -67,9 +67,7 @@ authController.register = async (req, res) => {
         //     })
         // }
 
-=======
-        
->>>>>>> master
+
         return res.send(newUser);
     } catch (error) {
         return res.send('Something went wrong creating user ' + error.message);
