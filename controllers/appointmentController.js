@@ -5,7 +5,7 @@ appointmentController.getMyAppointment =  async(req, res) => {
     try {
         const appointments = await Appointment.findAll({
             where: {
-                user_id2: req.userId
+                patient_id: req.userId
             },
             attributes: ["date"],
             include: [
@@ -47,7 +47,7 @@ appointmentController.getAppointment =  async(req, res) => {
         const {userId} = req;
         const getAppointment = await Appointment.findAll({
             where: {
-                user_id1: userId,
+                doctor_id: userId,
             },
             attributes: ["date"],
             include: [
@@ -130,8 +130,8 @@ appointmentController.createAppointment = async (req, res) => {
     try{
         const userPatient = req.userId
         // This part allow acces to create new appointment
-        const { user_id1, treatment_id, date } = req.body;
-        const userDentis = await User.findByPk(user_id1);
+        const { doctor_id, treatment_id, date } = req.body;
+        const userDentis = await User.findByPk(doctor_id);
 
         if(userDentis.role_id !==3){
             return res.json({
@@ -140,8 +140,8 @@ appointmentController.createAppointment = async (req, res) => {
             })
         }
         const newAppointment = await Appointment.create({
-            user_id1: user_id1,
-            user_id2: userPatient,
+            doctor_id: doctor_id,
+            patient_id: userPatient,
             treatment_id: treatment_id,
             date: date
         });
@@ -167,11 +167,11 @@ appointmentController.updateAppointment = async (req, res) => {
     try {
         // With appointment Id and this method Admin can update an appointment
         const appointmentId = req.params.id;
-        const { user_id1, user_id2, treatment_id, price, date } = req.body
+        const { doctor_id, patient_id, treatment_id, price, date } = req.body
         
         const updatedAppointment = await Appointment.update({
-            user_id1: user_id1,
-            user_id2: user_id2,
+            doctor_id: doctor_id,
+            patient_id: patient_id,
             treatment_id: treatment_id,
             price: price,
             date: date

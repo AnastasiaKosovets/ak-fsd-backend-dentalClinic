@@ -155,8 +155,8 @@ I have based on the creation of basic CRUD. This project has the following struc
         body:
         ``` bash
         {
-            "user_id1": "1",
-            "user_id2": "1",
+            "doctor_id": "1",
+            "patient_id": "1",
             "treatment_id": "3",
             "price": 10,
             "date": "2023-06-12"
