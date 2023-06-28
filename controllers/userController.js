@@ -109,43 +109,47 @@ userController.updateUser = async (req, res) => {
     // let body = req.body;
 
     try {
-        const userId = req.params.id;
-        const user = await User.findByPk(userId);
-
-        if(!user) {
-            return res.json({
-                    success: true,
-                    message: "User doesn't exist"
-                });
-        };
-        // In this part we declare parameters to be able to update one user
-        const {email, password, firstName, lastName, document, address, telefonNumber, collegialNumber, role_id} = req.body;
+        // const userId = req.params.id;
+        const userId = req.userId;
+        // const user = await User.findByPk(userId);
         
-        const updatedPassword = bcrypt.hashSync(req.body.password, 8);
-        const userUpdated = await User.update(
-            {
-                email: email,
-                password: updatedPassword,
-                firstName: firstName,
-                lastName: lastName,
-                document: document,
-                address: address,
-                telefonNumber: telefonNumber,
-                collegialNumber: collegialNumber
-            },
-            {
-                where: {
-                    id: userId
-                }
-            }
-        )
-        return res.json({
+        // if(!user) {
+            //     return res.json({
+                //             success: true,
+                //             message: "User doesn't exist"
+                //         });
+                // };
+                // In this part we declare parameters to be able to update one user
+                const {email, firstName, lastName, document, address, dateOfBirth, telefonNumber, collegialNumber} = req.body;
+                
+                // const updatedPassword = bcrypt.hashSync(req.body.password, 8);
+                const userUpdated = await User.update(
+                    {
+                        email: email,
+                        // password: updatedPassword,
+                        firstName: firstName,
+                        lastName: lastName,
+                        document: document,
+                        dateOfBirth: dateOfBirth,
+                        address: address,
+                        telefonNumber: telefonNumber,
+                        collegialNumber: collegialNumber
+                    },
+                    {
+                        where: {
+                            id: userId
+                        }
+                    }
+                    )
+                    console.log("HOLA")
+                    return res.json({
                 success: true,
                 message: "User updated",
                 data: userUpdated
             });
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
                 success: false,
                 message: "User can't be updated",

@@ -11,20 +11,36 @@ const authController = {};
 authController.register = async (req, res) => {
     // Conditionals to correct register dates
     try {
-        switch (true) {
-            case req.body.password.length < 4:
-                return res.send('Password must be longer than 4 characters');
-            case req.body.document.length < 9:
-                return res.send('Invalid document');
-            case req.body.telefonNumber.length < 9:
-                return res.send('Wrong phone number lenght');
-            case req.body.collegialNumber.length < 9:
-                return res.send('Invalid collegiate number');
-            default:
-                console.log('Something went wrong with your register')
-            
-        }
-        console.log("hola");
+        if (req.body.password.length < 8 || !/(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-=_+{}[\]|;:'",.<>/?])/.test(req.body.password)) {
+            // return res.send('Password must be longer than 4 characters');
+            return res.json({
+                success: true,
+                message: "Password must be longer than 4 characters and include "
+            });
+        };
+        // if ( req.body.document.length < 9 & !/[A-Z].*[A-Z]/.test(req.body.document)) {
+        //     // return res.send('Invalid document')
+        //     return res.json({
+        //         success: true,
+        //         message: "Invalid document"
+        //     });
+        // };
+        // if ( req.body.telefonNumber.length < 9) {
+        //     // return res.send('Wrong phone number lenght');
+        //     return res.json({
+        //         success: true,
+        //         message: "Wrong phone number lenght"
+        //     });
+        // };
+        // if ( req.body.collegialNumber.length < 9) {
+        //     // return res.send('Invalid collegiate number');
+        //     return res.json({
+        //         success: true,
+        //         message: "Invalid collegiate number"
+        //     });
+        // }
+
+        // console.log("hola");
         // Part where encrypc password
         const newPassword = bcrypt.hashSync(req.body.password, 8);
         const newUser = await User.create ({
@@ -32,16 +48,16 @@ authController.register = async (req, res) => {
             password: newPassword,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            document: req.body.document,
-            dateOfBirth: req.body.dateOfBirth,
-            address: req.body.address,
-            telefonNumber: req.body.telefonNumber,
-            collegialNumber: req.body.collegialNumber,
-            role_id: 2
+            // document: req.body.document,
+            // dateOfBirth: req.body.dateOfBirth,
+            // address: req.body.address,
+            // telefonNumber: req.body.telefonNumber,
+            // collegialNumber: req.body.collegialNumber,
+            // role_id: 2
         });
 
 
-         // Esta expresión regular garantiza que la contraseña cumpla con los siguientes requisitos:
+    // Esta expresión regular garantiza que la contraseña cumpla con los siguientes requisitos:
     // Al menos una letra mayúscula.
     // Al menos una letra minúscula.
     // Al menos un número.
@@ -84,7 +100,7 @@ authController.login = async (req, res) => {
             }
         });
         if (!user) {
-            return res.json({
+            return res.status(500).json({
                 success: true,
                 message: "Wrong email"
             });
@@ -102,7 +118,8 @@ authController.login = async (req, res) => {
         const token = jwt.sign({
             userId: user.id,
             roleId: user.role_id,
-            email: user.email
+            email: user.email,
+            userName: user.firstName
         },
         'secret',
         {
@@ -113,7 +130,8 @@ authController.login = async (req, res) => {
         return res.json({
             success: true,
             message: "User logged",
-            token: token
+            token: token,
+            user
         });
         
     } catch (error) {

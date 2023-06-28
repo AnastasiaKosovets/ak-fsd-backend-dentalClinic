@@ -4,6 +4,7 @@ const auth = require('../middlewares/verifyToken');
 const isAdmin = require('../middlewares/isAdmin');
 
 
+// router.get('/', treatmentController.getAllTreatments);
 router.get('/', auth, isAdmin, treatmentController.getAllTreatments);
 router.post('/', auth, isAdmin, treatmentController.createTreatment);
 router.put('/:id', auth, isAdmin, treatmentController.updateTreatment);
