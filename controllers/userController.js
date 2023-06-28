@@ -79,6 +79,60 @@ userController.getAllPatients =  async(req, res) => {
     }
 }
 
+userController.getAllDoctors =  async(req, res) => {
+    try {
+        // with the filter property, we can make our search more personalized
+        const filter = {
+            where: {
+                role_id: 3
+            },
+            // excluding information from user profile
+            attributes: {
+
+                exclude: ["password", "role_id"]
+            },
+        }
+        // filter users by name
+        if (req.query.firstName) {
+            filter.where.firstName = {
+                [Op.like]: "%" + req.query.firstName + "%"
+            }
+        }
+        // filter users by surname
+        if (req.query.lastName) {
+            filter.where.lastName = {
+                [Op.like]: "%" + req.query.lastName + "%"
+            }
+        }
+        // filter users by email
+        if (req.query.email) {
+            filter.where.email = {
+                [Op.like]: "%" + req.query.email + "%"
+            }
+        }
+        // search without filter
+        const users = await User.findAll(filter)
+        // if user doesn't exist:
+        if(users.length == 0) {
+            return res.status(404).json({
+                success: true,
+                message: "No patients found"
+            })
+        }
+        return res.json({
+            success: true,
+            message: "Patients retrieved",
+            data: users
+        })
+    } catch (error) {
+        return res.status(500).json({
+                success: false,
+                message: "Patients can't be retrieved",
+                error: error.message
+            })    
+    }
+}
+
 userController.getProfile =  async(req, res) => {
     try {
         // with const userId we obtain valu of user ID and then
