@@ -48,12 +48,13 @@ authController.register = async (req, res) => {
             password: newPassword,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            role_id: 2,
             // document: req.body.document,
             // dateOfBirth: req.body.dateOfBirth,
             // address: req.body.address,
             // telefonNumber: req.body.telefonNumber,
             // collegialNumber: req.body.collegialNumber,
-            // role_id: 2
+            
         });
 
 

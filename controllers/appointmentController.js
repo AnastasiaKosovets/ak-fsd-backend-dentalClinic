@@ -7,7 +7,7 @@ appointmentController.getMyAppointments =  async(req, res) => {
             where: {
                 patient_id: req.userId
             },
-            attributes: ["date"],
+            // attributes: ["date"],
             include: [
                 {
                     model: User,
@@ -92,7 +92,7 @@ appointmentController.getAllAppointments =  async(req, res) => {
     
         const appointments = await Appointment.findAll({
             
-            attributes: ["date"],
+            // attributes: ["date"],
             include: [
                 {
                     model: User,
@@ -199,6 +199,7 @@ appointmentController.updateAppointment = async (req, res) => {
 appointmentController.deleteAppointment = async (req, res) => {
     try {
         // According to the ID of appointment and destroy method we can manage appontments and delete one declaring his ID
+        // const userId = req.userId;
         const appointmentId = req.params.id;
         const deleteAppointment = await Appointment.destroy({
             where: {
